@@ -4,10 +4,12 @@ exports.Interpreter = void 0;
 const RuntimeError_1 = require("../errors/RuntimeError");
 const values_1 = require("./values");
 class Interpreter {
-    constructor(callStack, builtins, customBuiltins) {
+    constructor(callStack, builtins, customBuiltins, options, emit) {
         this.callStack = callStack;
         this.builtins = builtins;
         this.customBuiltins = customBuiltins;
+        this.options = options;
+        this.emit = emit;
         this.envStack = [new Map()];
         this.functions = new Map();
     }
@@ -193,6 +195,10 @@ class Interpreter {
         if (expr.args.length !== func.params.length) {
             throw new RuntimeError_1.RuntimeError(`Function '${expr.name}' expects ${func.params.length} arguments, got ${expr.args.length}`);
         }
+        // Emit call event
+        if (this.options.trace) {
+            this.emit('call', { function: expr.name, args: expr.args.map(arg => this.evaluate(arg).toString()) });
+        }
         // Create new environment
         const newEnv = new Map(this.currentEnv());
         for (let i = 0; i < func.params.length; i++) {
@@ -203,11 +209,19 @@ class Interpreter {
             for (const stmt of func.body) {
                 this.executeStatement(stmt);
             }
-            return values_1.Value.null(); // default return
+            const result = values_1.Value.null(); // default return
+            if (this.options.trace) {
+                this.emit('return', { function: expr.name, value: result.toString() });
+            }
+            return result;
         }
         catch (e) {
             if (e && typeof e === 'object' && 'type' in e && e.type === 'return') {
-                return e.value || values_1.Value.null();
+                const result = e.value || values_1.Value.null();
+                if (this.options.trace) {
+                    this.emit('return', { function: expr.name, value: result.toString() });
+                }
+                return result;
             }
             throw e;
         }
@@ -224,7 +238,14 @@ class Interpreter {
             throw new RuntimeError_1.RuntimeError(`Unknown builtin function '${expr.name}'`);
         }
         const args = expr.args.map(arg => this.evaluate(arg));
-        return builtin(args);
+        if (this.options.trace) {
+            this.emit('call', { function: expr.name, args: args.map(a => a.toString()) });
+        }
+        const result = builtin(args);
+        if (this.options.trace) {
+            this.emit('return', { function: expr.name, value: result.toString() });
+        }
+        return result;
     }
     evaluateBinary(expr) {
         const left = this.evaluate(expr.left);

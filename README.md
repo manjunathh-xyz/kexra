@@ -7,7 +7,7 @@
 
 Kexra is an interpreted scripting language designed for learning programming concepts. Simple syntax, clear error messages, and comprehensive documentation make it perfect for beginners and students.
 
-**v0.5.0 - Arrays, Objects & Standard Library** ✨
+**v0.7.0 - Debug Runtime & Hosted Kexra Studio** ✨
 
 ## 📦 Installation
 
@@ -46,6 +46,17 @@ Full documentation: https://kexra.js.org/docs
 ## 🌐 Website
 
 Visit the website: https://kexra.js.org
+
+## 🧰 Kexra Studio
+
+Try Kexra in your browser: https://studio.kexra.dev
+
+Kexra Studio is a web-based IDE with:
+- Code editor with syntax highlighting
+- Run and debug capabilities
+- Execution tracing
+- Interactive REPL
+- Pre-built examples
 
 ## ✨ Features
 

@@ -14,14 +14,24 @@ export interface RuntimeResult {
   stackTrace?: StackFrame[];
 }
 
+export interface RuntimeOptions {
+  debug?: boolean;
+  trace?: boolean;
+}
+
+type HookCallback = (data: any) => void;
+
 export class KexraRuntime {
   private interpreter: Interpreter;
   private callStack: CallStack;
   private customBuiltins: Map<string, RuntimeFn> = new Map();
+  private hooks: Map<string, HookCallback[]> = new Map();
+  private options: RuntimeOptions;
 
-  constructor() {
+  constructor(options: RuntimeOptions = {}) {
+    this.options = options;
     this.callStack = new CallStack();
-    this.interpreter = new Interpreter(this.callStack, builtins, this.customBuiltins);
+    this.interpreter = new Interpreter(this.callStack, builtins, this.customBuiltins, this.options, this.emit.bind(this));
   }
 
   runFile(path: string): RuntimeResult {
@@ -29,6 +39,9 @@ export class KexraRuntime {
       const source = fs.readFileSync(path, 'utf-8');
       return this.eval(source);
     } catch (error) {
+      if (this.options.debug || this.options.trace) {
+        this.emit('error', { message: error instanceof Error ? error.message : 'Unknown error' });
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -47,6 +60,9 @@ export class KexraRuntime {
         value: result,
       };
     } catch (error) {
+      if (this.options.debug || this.options.trace) {
+        this.emit('error', { message: error instanceof Error ? error.message : 'Unknown error' });
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -65,5 +81,19 @@ export class KexraRuntime {
 
   getEnv(): Record<string, any> {
     return this.interpreter.getEnv();
+  }
+
+  on(event: string, callback: HookCallback): void {
+    if (!this.hooks.has(event)) {
+      this.hooks.set(event, []);
+    }
+    this.hooks.get(event)!.push(callback);
+  }
+
+  private emit(event: string, data: any): void {
+    const callbacks = this.hooks.get(event);
+    if (callbacks) {
+      callbacks.forEach(cb => cb(data));
+    }
   }
 }

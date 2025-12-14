@@ -40,12 +40,21 @@ function main() {
         console.log(`🚀 Kexra v${VERSION}`);
         console.log(`Running: ${filePath}`);
         console.log('──────────────────────────');
-        const runtime = new runtime_1.KexraRuntime();
+        const runtime = new runtime_1.KexraRuntime({ debug, trace });
+        if (trace) {
+            runtime.on('call', (data) => {
+                console.log(`→ call ${data.function}(${data.args.join(', ')})`);
+            });
+            runtime.on('return', (data) => {
+                console.log(`→ return ${data.value}`);
+            });
+        }
+        runtime.on('error', (data) => {
+            console.error(`❌ ${data.message}`);
+        });
         const result = runtime.runFile(filePath);
         if (!result.success) {
-            console.error(`❌ Runtime Error`);
-            console.error(result.error);
-            if (debug || trace) {
+            if (debug) {
                 console.error('Stack trace:');
                 (_a = result.stackTrace) === null || _a === void 0 ? void 0 : _a.forEach(frame => {
                     console.error(`  at ${frame.functionName} (${frame.line}:${frame.column})`);

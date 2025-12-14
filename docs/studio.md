@@ -5,18 +5,22 @@ Kexra Studio is a web-based integrated development environment (IDE) for writing
 ## Features
 
 - **Code Editor**: Syntax-highlighted editing with Monaco Editor
-- **Run Button**: Execute code instantly
-- **Output Panel**: View program output and errors
+- **Run / Reset Buttons**: Execute code instantly or clear output
+- **Output Panel**: View program output
+- **Error Panel**: Display runtime errors
+- **Trace Panel**: Show execution traces (calls and returns)
 - **REPL Panel**: Interactive code evaluation
 - **Examples**: Pre-built code samples to get started
+- **Trace Toggle**: Enable/disable execution tracing
 
 ## Getting Started
 
-1. Open `studio/index.html` in your web browser
+1. Visit the hosted Kexra Studio at [studio.kexra.dev](https://studio.kexra.dev) (or open `studio/index.html` locally)
 2. Write or load example code in the editor
 3. Click "Run" to execute
-4. View output in the right panel
+4. View output, errors, and traces in the panels
 5. Use the REPL for quick experiments
+6. Toggle trace mode to see execution flow
 
 ## Interface
 

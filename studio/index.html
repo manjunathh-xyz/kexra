@@ -94,6 +94,8 @@
       <div class="panel-header">
         Code Editor
         <button class="run-btn" id="run-btn">Run</button>
+        <button class="run-btn" id="reset-btn">Reset</button>
+        <button class="run-btn" id="trace-btn">Enable Trace</button>
         <div class="examples">
           <select id="examples">
             <option value="">Select Example</option>
@@ -116,9 +118,13 @@ say "Hello, Kexra!"</textarea>
     <div class="output-panel">
       <div class="panel-header">Output</div>
       <div class="panel-content" id="output"></div>
+      <div class="panel-header">Errors</div>
+      <div class="panel-content" id="error"></div>
+      <div class="panel-header">Trace</div>
+      <div class="panel-content" id="trace"></div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
-  <script src="editor.js"></script>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

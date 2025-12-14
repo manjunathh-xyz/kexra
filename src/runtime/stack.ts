@@ -4,6 +4,7 @@ export interface StackFrame {
   functionName: string;
   line: number;
   column: number;
+  file?: string;
 }
 
 export class CallStack {

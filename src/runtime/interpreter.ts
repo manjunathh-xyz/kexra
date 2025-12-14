@@ -1,7 +1,14 @@
- import { Program, Statement, SayStatement, SetStatement, CheckStatement, LoopStatement, ForStatement, FunctionDeclaration, ReturnStatement, BreakStatement, ContinueStatement, Expression, LiteralExpression, VariableExpression, BinaryExpression, LogicalExpression, CallExpression, ArrayExpression, ObjectExpression, IndexExpression, NilSafeExpression, RangeExpression } from '../types';
- import { RuntimeError } from '../errors/RuntimeError';
- import { Value, ValueType, RuntimeFn } from './values';
- import { CallStack } from './stack';
+import { Program, Statement, SayStatement, SetStatement, CheckStatement, LoopStatement, ForStatement, FunctionDeclaration, ReturnStatement, BreakStatement, ContinueStatement, Expression, LiteralExpression, VariableExpression, BinaryExpression, LogicalExpression, CallExpression, ArrayExpression, ObjectExpression, IndexExpression, NilSafeExpression, RangeExpression } from '../types';
+import { RuntimeError } from '../errors/RuntimeError';
+import { Value, ValueType, RuntimeFn } from './values';
+import { CallStack } from './stack';
+
+export interface RuntimeOptions {
+  debug?: boolean;
+  trace?: boolean;
+}
+
+type EmitFn = (event: string, data: any) => void;
 
 export class Interpreter {
   private envStack: Map<string, Value>[] = [new Map()];
@@ -10,7 +17,9 @@ export class Interpreter {
   constructor(
     private callStack: CallStack,
     private builtins: Record<string, RuntimeFn>,
-    private customBuiltins: Map<string, RuntimeFn>
+    private customBuiltins: Map<string, RuntimeFn>,
+    private options: RuntimeOptions,
+    private emit: EmitFn
   ) {}
 
   private currentEnv(): Map<string, Value> {
@@ -198,6 +207,12 @@ export class Interpreter {
     if (expr.args.length !== func.params.length) {
       throw new RuntimeError(`Function '${expr.name}' expects ${func.params.length} arguments, got ${expr.args.length}`);
     }
+
+    // Emit call event
+    if (this.options.trace) {
+      this.emit('call', { function: expr.name, args: expr.args.map(arg => this.evaluate(arg).toString()) });
+    }
+
     // Create new environment
     const newEnv = new Map(this.currentEnv());
     for (let i = 0; i < func.params.length; i++) {
@@ -208,10 +223,18 @@ export class Interpreter {
       for (const stmt of func.body) {
         this.executeStatement(stmt);
       }
-      return Value.null(); // default return
+      const result = Value.null(); // default return
+      if (this.options.trace) {
+        this.emit('return', { function: expr.name, value: result.toString() });
+      }
+      return result;
     } catch (e) {
       if (e && typeof e === 'object' && 'type' in e && (e as any).type === 'return') {
-        return (e as any).value || Value.null();
+        const result = (e as any).value || Value.null();
+        if (this.options.trace) {
+          this.emit('return', { function: expr.name, value: result.toString() });
+        }
+        return result;
       }
       throw e;
     } finally {
@@ -229,7 +252,14 @@ export class Interpreter {
       throw new RuntimeError(`Unknown builtin function '${expr.name}'`);
     }
     const args = expr.args.map(arg => this.evaluate(arg));
-    return builtin(args);
+    if (this.options.trace) {
+      this.emit('call', { function: expr.name, args: args.map(a => a.toString()) });
+    }
+    const result = builtin(args);
+    if (this.options.trace) {
+      this.emit('return', { function: expr.name, value: result.toString() });
+    }
+    return result;
   }
 
   private evaluateBinary(expr: BinaryExpression): Value {

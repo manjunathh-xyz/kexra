@@ -1,5 +1,7 @@
-// Kexra Studio Editor
-let runtime: any;
+import { BrowserRuntime } from './runtime-bridge';
+
+let runtime: BrowserRuntime;
+let traceEnabled = false;
 
 const examples: { [key: string]: string } = {
   hello: `say "Hello, Kexra!"
@@ -27,32 +29,31 @@ loop count < 3 {
 };
 
 function initRuntime() {
-  // Mock runtime for MVP
-  runtime = {
-    eval: function(code: string) {
-      try {
-        // Simple mock - in real implementation, use compiled Kexra runtime
-        if (code.includes('say')) {
-          return { success: true, value: 'Output: Hello from Kexra!' };
-        }
-        return { success: true, value: 'Code executed successfully' };
-      } catch (e) {
-        return { success: false, error: 'Runtime error' };
-      }
-    }
-  };
+  runtime = new BrowserRuntime({ trace: traceEnabled });
 }
 
 function runCode() {
   const editor = document.getElementById('editor') as HTMLTextAreaElement;
   const code = editor.value;
   const result = runtime.eval(code);
+
   const output = document.getElementById('output')!;
-  if (result.success) {
-    output.textContent = result.value;
-  } else {
-    output.textContent = 'Error: ' + result.error;
-  }
+  const errorPanel = document.getElementById('error')!;
+  const tracePanel = document.getElementById('trace')!;
+
+  output.textContent = result.output || '';
+  errorPanel.textContent = result.error || '';
+  tracePanel.textContent = runtime.getTraces().join('\n');
+}
+
+function reset() {
+  runtime.reset();
+  const output = document.getElementById('output')!;
+  const errorPanel = document.getElementById('error')!;
+  const tracePanel = document.getElementById('trace')!;
+  output.textContent = '';
+  errorPanel.textContent = '';
+  tracePanel.textContent = '';
 }
 
 function loadExample() {
@@ -64,6 +65,13 @@ function loadExample() {
   }
 }
 
+function toggleTrace() {
+  traceEnabled = !traceEnabled;
+  initRuntime(); // Reinitialize with new trace setting
+  const traceBtn = document.getElementById('trace-btn') as HTMLButtonElement;
+  traceBtn.textContent = traceEnabled ? 'Disable Trace' : 'Enable Trace';
+}
+
 function initREPL() {
   const replInput = document.getElementById('repl-input') as HTMLInputElement;
   replInput.addEventListener('keydown', function(e) {
@@ -71,7 +79,7 @@ function initREPL() {
       const code = replInput.value;
       const result = runtime.eval(code);
       const output = document.getElementById('output')!;
-      output.textContent += '\n> ' + code + '\n' + (result.success ? result.value : 'Error: ' + result.error);
+      output.textContent += '\n> ' + code + '\n' + (result.output || result.error || '');
       replInput.value = '';
     }
   });
@@ -83,6 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const runBtn = document.getElementById('run-btn')!;
   runBtn.addEventListener('click', runCode);
+
+  const resetBtn = document.getElementById('reset-btn')!;
+  resetBtn.addEventListener('click', reset);
+
+  const traceBtn = document.getElementById('trace-btn')!;
+  traceBtn.addEventListener('click', toggleTrace);
 
   const examplesSelect = document.getElementById('examples')!;
   examplesSelect.addEventListener('change', loadExample);

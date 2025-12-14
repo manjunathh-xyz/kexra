@@ -69,7 +69,39 @@ Runtime errors include:
 
 Use `--debug` flag for stack traces.
 
+## Debug Mode
+
+Enable debug mode with `--debug`:
+
+```bash
+kex run app.kx --debug
+```
+
+Debug mode provides:
+- Detailed stack traces on errors
+- Enhanced error context
+- Function call information
+
+## Trace Mode
+
+Enable trace mode with `--trace`:
+
+```bash
+kex run app.kx --trace
+```
+
+Trace mode outputs execution flow:
+```
+→ call add(2, 3)
+→ return 5
+```
+
+Shows:
+- Function calls with arguments
+- Return values
+- Execution path
+
 ## Flags
 
-- `--debug`: Show detailed error information
-- `--trace`: Enable execution tracing
+- `--debug`: Show detailed error information and stack traces
+- `--trace`: Enable execution tracing with call/return logs
