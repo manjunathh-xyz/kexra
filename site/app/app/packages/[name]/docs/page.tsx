@@ -9,7 +9,7 @@ interface PageProps {
   };
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const packages = getPackages();
   return packages.map((pkg) => ({
     name: pkg.name,
