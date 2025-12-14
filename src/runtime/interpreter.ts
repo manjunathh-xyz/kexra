@@ -439,6 +439,9 @@ export class Interpreter {
       case '/':
         this.checkNumbers(left, right, '/');
         return Value.number(left.value / right.value);
+      case '%':
+        this.checkNumbers(left, right, '%');
+        return Value.number(left.value % right.value);
       case '>':
         this.checkNumbers(left, right, '>');
         return Value.boolean(left.value > right.value);

@@ -1,0 +1,106 @@
+set arr = [1, 2, 3, 4, 5]
+
+# Test array functions
+say "Original array:"
+say arr
+
+say "Map (double):"
+set doubled = map(arr, fn f(x) {
+  return x * 2
+})
+say doubled
+
+say "Filter (evens):"
+set evens = filter(arr, fn f(x) {
+  return x % 2 == 0
+})
+say evens
+
+say "Reduce (sum):"
+set sum = reduce(arr, fn f(acc, x) {
+  return acc + x
+}, 0)
+say sum
+
+say "Includes 3:"
+say includes(arr, 3)
+
+say "ForEach:"
+forEach(arr, fn f(x) {
+  say x
+})
+
+say "Index of 3:"
+say indexOf(arr, 3)
+
+say "Slice 1-3:"
+say slice(arr, 1, 4)
+
+say "Concat with [6,7]:"
+set combined = concat(arr, [6, 7])
+say combined
+
+# Test string functions
+set text = "Hello World"
+
+say "Original string:"
+say text
+
+say "Trim:"
+set trimmed = trim("  hello  ")
+say trimmed
+
+say "Split by space:"
+set words = split(text, " ")
+say words
+
+say "Replace 'World' with 'Kexra':"
+set replaced = replace(text, "World", "Kexra")
+say replaced
+
+say "Starts with 'Hello':"
+say startsWith(text, "Hello")
+
+say "Ends with 'World':"
+say endsWith(text, "World")
+
+say "Includes 'Wor':"
+say includes(text, "Wor")
+
+# Test number functions
+say "Round 3.7:"
+say round(3.7)
+
+say "Floor 3.7:"
+say floor(3.7)
+
+say "Ceil 3.2:"
+say ceil(3.2)
+
+say "Clamp 5 between 0-10:"
+say clamp(5, 0, 10)
+
+say "Clamp 15 between 0-10:"
+say clamp(15, 0, 10)
+
+# Test type checks
+say "Type of 42:"
+say type(42)
+
+say "isNumber(42):"
+say isNumber(42)
+
+say "isString('hello'):"
+say isString("hello")
+
+say "isArray([1,2]):"
+say isArray([1, 2])
+
+say "isBoolean(true):"
+say isBoolean(true)
+
+say "isObject({}):"
+say isObject({})
+
+say "isNull(null):"
+say isNull(null)

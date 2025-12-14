@@ -385,6 +385,9 @@ class Interpreter {
             case '/':
                 this.checkNumbers(left, right, '/');
                 return values_1.Value.number(left.value / right.value);
+            case '%':
+                this.checkNumbers(left, right, '%');
+                return values_1.Value.number(left.value % right.value);
             case '>':
                 this.checkNumbers(left, right, '>');
                 return values_1.Value.boolean(left.value > right.value);
