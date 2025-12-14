@@ -185,4 +185,28 @@ document.addEventListener('DOMContentLoaded', function() {
   // Toolbar buttons
   document.getElementById('run-btn')!.addEventListener('click', runCode);
   document.getElementById('reset-btn')!.addEventListener('click', reset);
+
+  // Resizable splitter
+  const splitter = document.getElementById('repl-splitter')!;
+  let isResizing = false;
+
+  splitter.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    document.body.style.cursor = 'ew-resize';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+    const replPanel = document.getElementById('repl-container') as HTMLElement;
+    const container = document.querySelector('.bottom-area') as HTMLElement;
+    const rect = container.getBoundingClientRect();
+    const newWidth = Math.max(150, Math.min(600, rect.right - e.clientX));
+    replPanel.style.width = newWidth + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isResizing = false;
+    document.body.style.cursor = '';
+  });
 });
