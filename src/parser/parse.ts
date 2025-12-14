@@ -1,4 +1,4 @@
-import { Token, TokenType, Program, Statement, SayStatement, SetStatement, CheckStatement, LoopStatement, FunctionDeclaration, ReturnStatement, Expression, LiteralExpression, VariableExpression, BinaryExpression, CallExpression } from '../types';
+import { Token, TokenType, Program, Statement, SayStatement, SetStatement, CheckStatement, LoopStatement, FunctionDeclaration, ReturnStatement, Expression, LiteralExpression, VariableExpression, BinaryExpression, CallExpression, ArrayExpression, ObjectExpression, IndexExpression } from '../types';
 import { SyntaxError } from '../errors/SyntaxError';
 
 export class Parser {
@@ -174,6 +174,7 @@ export class Parser {
     return this.parsePrimary();
   }
 
+  // TODO: v0.5.0 - Add parsing for arrays [], objects {}, and indexing []
   private parsePrimary(): Expression {
     if (this.match('NUMBER')) {
       return { type: 'literal', valueType: 'number', value: parseFloat(this.previous().value) } as LiteralExpression;
@@ -181,20 +182,20 @@ export class Parser {
     if (this.match('STRING')) {
       return { type: 'literal', valueType: 'string', value: this.previous().value } as LiteralExpression;
     }
+    if (this.match('KEYWORD', 'true')) {
+      return { type: 'literal', valueType: 'boolean', value: true } as LiteralExpression;
+    }
+    if (this.match('KEYWORD', 'false')) {
+      return { type: 'literal', valueType: 'boolean', value: false } as LiteralExpression;
+    }
+    if (this.match('OPERATOR', '[')) {
+      return this.parseArray();
+    }
+    if (this.match('OPERATOR', '{')) {
+      return this.parseObject();
+    }
     if (this.match('IDENT')) {
-      const name = this.previous().value;
-      if (this.match('OPERATOR', '(')) {
-        const args: Expression[] = [];
-        if (!this.check('OPERATOR', ')')) {
-          do {
-            args.push(this.parseExpression());
-          } while (this.match('OPERATOR', ','));
-        }
-        this.consume('OPERATOR', 'Expected )', ')');
-        return { type: 'call', name, args } as CallExpression;
-      } else {
-        return { type: 'variable', name } as VariableExpression;
-      }
+      return this.parseIdentifierOrCall();
     }
     if (this.match('OPERATOR', '(')) {
       const expr = this.parseExpression();
@@ -202,6 +203,57 @@ export class Parser {
       return expr;
     }
     throw this.error(this.peek(), 'Expected expression');
+  }
+
+  private parseArray(): ArrayExpression {
+    const elements: Expression[] = [];
+    if (!this.check('OPERATOR', ']')) {
+      do {
+        elements.push(this.parseExpression());
+      } while (this.match('OPERATOR', ','));
+    }
+    this.consume('OPERATOR', 'Expected ]', ']');
+    return { type: 'array', elements } as ArrayExpression;
+  }
+
+  private parseObject(): ObjectExpression {
+    const properties: { key: string; value: Expression }[] = [];
+    if (!this.check('OPERATOR', '}')) {
+      do {
+        const key = this.consume('IDENT', 'Expected property name').value;
+        this.consume('OPERATOR', 'Expected :', ':');
+        const value = this.parseExpression();
+        properties.push({ key, value });
+      } while (this.match('OPERATOR', ','));
+    }
+    this.consume('OPERATOR', 'Expected }', '}');
+    return { type: 'object', properties } as ObjectExpression;
+  }
+
+  private parseIdentifierOrCall(): Expression {
+    const name = this.previous().value;
+    let expr: Expression = { type: 'variable', name } as VariableExpression;
+
+    // Handle indexing
+    while (this.match('OPERATOR', '[')) {
+      const index = this.parseExpression();
+      this.consume('OPERATOR', 'Expected ]', ']');
+      expr = { type: 'index', object: expr, index } as IndexExpression;
+    }
+
+    // Handle function calls
+    if (this.match('OPERATOR', '(')) {
+      const args: Expression[] = [];
+      if (!this.check('OPERATOR', ')')) {
+        do {
+          args.push(this.parseExpression());
+        } while (this.match('OPERATOR', ','));
+      }
+      this.consume('OPERATOR', 'Expected )', ')');
+      expr = { type: 'call', name, args } as CallExpression;
+    }
+
+    return expr;
   }
 
   private match(type: TokenType, ...values: string[]): boolean {

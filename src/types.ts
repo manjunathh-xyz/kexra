@@ -17,14 +17,24 @@ export interface Token {
 }
 
 export interface Expression {
-  type: 'literal' | 'variable' | 'binary' | 'call';
+  type: 'literal' | 'variable' | 'binary' | 'call' | 'array' | 'object' | 'index';
 }
 
 export interface LiteralExpression extends Expression {
   type: 'literal';
-  valueType: 'number' | 'string';
-  value: number | string;
+  valueType: 'number' | 'string' | 'boolean';
+  value: number | string | boolean;
 }
+
+// TODO: v0.5.0 - Implement unified Value type for runtime
+export type Value =
+  | { type: 'number'; value: number }
+  | { type: 'string'; value: string }
+  | { type: 'boolean'; value: boolean }
+  | { type: 'array'; value: Value[] }
+  | { type: 'object'; value: Map<string, Value> }
+  | { type: 'function'; value: FunctionDeclaration }
+  | { type: 'null'; value: null };
 
 export interface VariableExpression extends Expression {
   type: 'variable';
@@ -42,6 +52,22 @@ export interface CallExpression extends Expression {
   type: 'call';
   name: string;
   args: Expression[];
+}
+
+export interface ArrayExpression extends Expression {
+  type: 'array';
+  elements: Expression[];
+}
+
+export interface ObjectExpression extends Expression {
+  type: 'object';
+  properties: { key: string; value: Expression }[];
+}
+
+export interface IndexExpression extends Expression {
+  type: 'index';
+  object: Expression;
+  index: Expression;
 }
 
 export interface Statement {
