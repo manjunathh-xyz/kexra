@@ -18,8 +18,3 @@ jobs:
       - run: npm run build
       - run: node dist/cli.js run examples/hello.kx
       - run: node dist/cli.js run examples/test.kx
-      - name: Publish to npm
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
