@@ -11,8 +11,8 @@ export interface PackageMeta {
 }
 
 export function getPackages(): PackageMeta[] {
-  const packagesDir = path.join(process.cwd(), '..', 'packages');
-  const sitePackagesDir = path.join(process.cwd(), '..', 'site', 'packages');
+  const packagesDir = path.join(process.cwd(), '..', '..', 'packages');
+  const sitePackagesDir = path.join(process.cwd(), '..', '..', 'site', 'packages');
 
   if (!fs.existsSync(packagesDir) || !fs.existsSync(sitePackagesDir)) {
     return [];
@@ -43,7 +43,7 @@ export function getPackages(): PackageMeta[] {
 }
 
 export function getPackageMeta(name: string): PackageMeta | null {
-  const metaPath = path.join(process.cwd(), '..', 'site', 'packages', name, 'meta.json');
+  const metaPath = path.join(process.cwd(), '..', '..', 'site', 'packages', name, 'meta.json');
   if (!fs.existsSync(metaPath)) {
     return null;
   }
@@ -58,6 +58,7 @@ export function getPackageWebsite(name: string): string | null {
   const websitePath = path.join(
     process.cwd(),
     '..',
+    '..',
     'site',
     'packages',
     name,
@@ -71,7 +72,7 @@ export function getPackageWebsite(name: string): string | null {
 }
 
 export function getPackageDocs(name: string): string | null {
-  const docsPath = path.join(process.cwd(), '..', 'site', 'packages', name, 'README.md');
+  const docsPath = path.join(process.cwd(), '..', '..', 'site', 'packages', name, 'README.md');
   if (!fs.existsSync(docsPath)) {
     return null;
   }
