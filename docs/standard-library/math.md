@@ -18,6 +18,16 @@ use math { pi, e, sin, cos, sqrt }
 set circleArea = pi * radius * radius
 set hypotenuse = sqrt(a*a + b*b)
 set angle = sin(theta)
+
+# Number utilities
+set rounded = round(3.7)  # 4
+set floored = floor(3.7)  # 3
+set ceiled = ceil(3.2)  # 4
+set clamped = clamp(5, 0, 10)  # 5 (between 0 and 10)
+
+# Check number properties
+set nanCheck = isNaN("not a number")  # false
+set finiteCheck = isFinite(1/0)  # false
 ```
 
 ## Common mistakes

@@ -22,6 +22,16 @@ set clean = trim(text)  # "Hello, World!"
 set upper = upper("hello")  # "HELLO"
 set lower = lower("WORLD")  # "world"
 
+# Replace substring
+set replaced = replace("hello world", "world", "kexra")  # "hello kexra"
+
+# Check starts/ends
+set starts = startsWith("hello", "he")  # true
+set ends = endsWith("world", "ld")  # true
+
+# Check contains
+set contains = includes("hello", "ell")  # true
+
 # Split into array
 set words = split("a,b,c", ",")  # ["a", "b", "c"]
 

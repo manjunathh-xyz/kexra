@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-12-14
+
+### Fixed
+
+- Parser bug allowing files without trailing newlines
+- Multiple package bugs and inconsistencies
+- Incorrect edge-case behavior
+
+### Added
+
+- Missing core functions for arrays, strings, numbers, and type checks
+- Improved datatype completeness
+- Enhanced error messages and consistency
+
+### Notes
+
+- Patch release for stability and completeness
+
 ## [1.1.0] - 2025-12-14
 
 ### Added

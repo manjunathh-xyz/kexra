@@ -10,7 +10,7 @@ class Parser {
     }
     parse() {
         const statements = [];
-        while (!this.isAtEnd()) {
+        while (!this.isAtEnd() && this.peek().type !== 'EOF') {
             statements.push(this.parseStatement());
         }
         return statements;
@@ -440,7 +440,10 @@ class Parser {
         throw this.error(this.peek(), message);
     }
     expectNewline() {
-        if (!this.isAtEnd() && this.peek().type !== 'NEWLINE' && this.peek().type !== 'BLOCK_END') {
+        if (!this.isAtEnd() &&
+            this.peek().type !== 'NEWLINE' &&
+            this.peek().type !== 'BLOCK_END' &&
+            this.peek().type !== 'EOF') {
             throw this.error(this.peek(), 'Expected newline');
         }
         while (!this.isAtEnd() && this.peek().type === 'NEWLINE')

@@ -20,6 +20,12 @@ fn processValue(value) {
     return upper(value)
   } else check isArray(value) {
     return len(value)
+  } else check isBoolean(value) {
+    return not value
+  } else check isObject(value) {
+    return keys(value)
+  } else check isNull(value) {
+    return "null value"
   } else {
     throw "Unsupported type"
   }
