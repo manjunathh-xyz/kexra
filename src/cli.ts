@@ -24,6 +24,7 @@ function showHelp() {
   console.log('  kex list              List installed packages');
   console.log('  kex fmt               Format Kexra files');
   console.log('  kex test              Run tests');
+  console.log('  kex publish           Publish a package');
   console.log('  kex version           Show version');
   console.log('  kex help              Show help');
   console.log('');
@@ -91,6 +92,11 @@ function main() {
   if (args[0] === 'test') {
     // TODO: implement test
     console.log('Running tests...');
+    return;
+  }
+
+  if (args[0] === 'publish') {
+    pkgManager.publish();
     return;
   }
 

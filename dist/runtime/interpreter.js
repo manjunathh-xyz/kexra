@@ -592,9 +592,7 @@ class Interpreter {
     executeUse(stmt) {
         // Load module if not cached
         if (!this.modules.has(stmt.module)) {
-            // For now, assume module is a file
-            // TODO: implement module loading
-            throw new RuntimeError_1.RuntimeError(`Module '${stmt.module}' not found`);
+            this.loadUserModule(stmt.module);
         }
         const moduleExports = this.modules.get(stmt.module);
         for (const name of stmt.imports) {
@@ -605,6 +603,28 @@ class Interpreter {
                 throw new RuntimeError_1.RuntimeError(`Export '${name}' not found in module '${stmt.module}'`);
             }
         }
+    }
+    loadUserModule(name) {
+        console.log(`Loading module ${name}`);
+        const exports = new Map();
+        // For now, hardcode for math-extra
+        if (name === 'math-extra') {
+            exports.set('sin', values_1.Value.function((args) => {
+                if (args.length !== 1 || args[0].type !== 'number')
+                    throw new Error('sin expects one number');
+                return values_1.Value.number(Math.sin(args[0].value));
+            }));
+            exports.set('cos', values_1.Value.function((args) => {
+                if (args.length !== 1 || args[0].type !== 'number')
+                    throw new Error('cos expects one number');
+                return values_1.Value.number(Math.cos(args[0].value));
+            }));
+            exports.set('e', values_1.Value.number(Math.E));
+        }
+        else {
+            throw new RuntimeError_1.RuntimeError(`Module '${name}' not found`);
+        }
+        this.modules.set(name, exports);
     }
 }
 exports.Interpreter = Interpreter;

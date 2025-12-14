@@ -1,5 +1,8 @@
 {
   "name": "my-project",
   "version": "0.1.0",
+  "description": "A sample Kexra project",
+  "author": "manjunathh-xyz",
+  "license": "MIT",
   "dependencies": {}
 }

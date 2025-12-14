@@ -1,0 +1,3 @@
+use math-extra { sin, e }
+say sin(0)
+say e
