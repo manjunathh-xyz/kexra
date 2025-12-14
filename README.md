@@ -265,6 +265,11 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - Inspired by the joy of programming
 - Thanks to the open-source community
 
+## Credits
+
+- Manjunath H ([@manjunathh-xyz](https://github.com/manjunathh-xyz))
+- Ramkrishna ([@ramkrishna-xyz](https://github.com/ramkrishna-xyz))
+
 ---
 
-**Ready to build your own language?** Yolang is a great starting point! 🌟
+**Ready to build your own language?** Kexra is a great starting point! 🌟
