@@ -7,7 +7,7 @@ const parse_1 = require("./parser/parse");
 const interpreter_1 = require("./runtime/interpreter");
 const reporter_1 = require("./errors/reporter");
 function main() {
-    console.log('🚀 Yolang v0.1.0');
+    console.log('🚀 Yolang v0.1.2');
     console.log('');
     const args = process.argv;
     if (args.length < 4 || args[2] !== 'run') {

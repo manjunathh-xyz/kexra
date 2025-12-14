@@ -7,7 +7,7 @@ import { Interpreter } from './runtime/interpreter';
 import { reportError } from './errors/reporter';
 
 function main() {
-  console.log('🚀 Yolang v0.1.0');
+  console.log('🚀 Yolang v0.1.2');
   console.log('');
 
   const args = process.argv;

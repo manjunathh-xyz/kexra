@@ -1,4 +1,4 @@
-import { Token, TokenType } from '../types';
+import { Token } from '../types';
 import { keywords } from '../keywords';
 
 export function tokenize(source: string): Token[] {
