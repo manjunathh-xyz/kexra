@@ -7,7 +7,7 @@
 
 Kexra is an interpreted scripting language designed for learning programming concepts. Simple syntax, clear error messages, and comprehensive documentation make it perfect for beginners and students.
 
-**v0.8.0 - Language Power & Safety** ✨
+**v0.8.2 - Kexra Studio UX Patch** ✨
 
 ## 📦 Installation
 
@@ -51,12 +51,13 @@ Visit the website: https://kexra.js.org
 
 Try Kexra in your browser: https://studio.kexra.dev
 
-Kexra Studio is a web-based IDE with:
-- Code editor with syntax highlighting
-- Run and debug capabilities
-- Execution tracing
-- Interactive REPL
-- Pre-built examples
+Kexra Studio is a VS Code–like web IDE with:
+- Monaco Editor with full syntax highlighting
+- Sidebar explorer for examples
+- Bottom panels for output, errors, and traces
+- Interactive REPL with command history
+- Keyboard shortcuts and command palette
+- Dark theme and modern UI
 
 ## ✨ Features
 

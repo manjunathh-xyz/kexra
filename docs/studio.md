@@ -13,14 +13,63 @@ Kexra Studio is a web-based integrated development environment (IDE) for writing
 - **Examples**: Pre-built code samples to get started
 - **Trace Toggle**: Enable/disable execution tracing
 
+## Interface
+
+Kexra Studio features a VS Code–inspired interface:
+
+```
+┌─────────────────────────────────────────────────┐
+│ Toolbar: Run | Reset                           │
+├─────────┬───────────────────────────────────────┤
+│ Explorer│ Code Editor                           │
+│         │                                       │
+│         │                                       │
+├─────────┴─────────────────────┬─────────────────┤
+│ Output / Errors / Trace       │ REPL            │
+└───────────────────────────────┴─────────────────┘
+```
+
 ## Getting Started
 
-1. Visit the hosted Kexra Studio at [studio.kexra.dev](https://studio.kexra.dev) (or open `studio/index.html` locally)
-2. Write or load example code in the editor
-3. Click "Run" to execute
-4. View output, errors, and traces in the panels
-5. Use the REPL for quick experiments
-6. Toggle trace mode to see execution flow
+1. Visit the hosted Kexra Studio at [studio.kexra.dev](https://studio.kexra.dev)
+2. Browse examples in the sidebar
+3. Edit code in the Monaco editor
+4. Run with toolbar button or `Ctrl+Enter`
+5. View results in bottom panels
+6. Use REPL for interactive coding
+
+## Features
+
+### Editor
+- Monaco Editor with syntax highlighting
+- Dark theme (VS Code–like)
+- Line numbers and bracket matching
+- Code folding and auto-indentation
+
+### Panels
+- **Output**: Program execution results
+- **Errors**: Runtime errors and diagnostics
+- **Trace**: Function call/return tracing
+
+### REPL
+- Interactive command execution
+- Command history (arrow keys)
+- Clear button
+
+### Keyboard Shortcuts
+- `Ctrl+Enter`: Run code
+- `Ctrl+S`: Virtual save
+- `Ctrl+/`: Toggle line comment
+- `Ctrl+Shift+P`: Command palette
+- `Esc`: Close palette/panel
+
+### Command Palette
+Access with `Ctrl+Shift+P`:
+- Run File
+- Reset Runtime
+- Clear Output
+- Switch Theme
+- Open Docs
 
 ## Interface
 
