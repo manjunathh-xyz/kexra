@@ -8,7 +8,7 @@ const interpreter_1 = require("./runtime/interpreter");
 const reporter_1 = require("./errors/reporter");
 const repl_1 = require("./repl/repl");
 const KexraError_1 = require("./errors/KexraError");
-const VERSION = JSON.parse((0, fs_1.readFileSync)('./package.json', 'utf-8')).version;
+const VERSION = require('../package.json').version;
 function showHelp() {
     console.log(`Kexra v${VERSION}`);
     console.log('');

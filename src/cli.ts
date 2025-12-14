@@ -9,7 +9,7 @@ import { startRepl } from './repl/repl';
 import { CliError } from './errors/CliError';
 import { KexraError } from './errors/KexraError';
 
-const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version;
+const VERSION = require('../package.json').version;
 
 function showHelp() {
   console.log(`Kexra v${VERSION}`);
