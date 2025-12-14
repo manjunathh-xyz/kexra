@@ -1,34 +1,22 @@
-// Mock API for registry
+const API_BASE_URL = 'http://51.75.118.170:20246';
+
 export interface PackageInfo {
   name: string;
   version: string;
   description?: string;
   author?: string;
   license?: string;
-  repository?: string;
 }
 
 export async function getPackages(): Promise<PackageInfo[]> {
-  // Mock data
-  return [
-    {
-      name: 'math',
-      version: '1.0.0',
-      description: 'Built-in math module',
-      author: 'Kexra Team',
-      license: 'MIT',
-    },
-    {
-      name: 'math-extra',
-      version: '0.1.0',
-      description: 'Extra math utilities',
-      author: 'manjunathh-xyz',
-      license: 'MIT',
-    },
-  ];
+  const response = await fetch(`${API_BASE_URL}/packages`);
+  if (!response.ok) throw new Error('Failed to fetch packages');
+  return response.json();
 }
 
 export async function getPackage(name: string): Promise<PackageInfo | null> {
-  const packages = await getPackages();
-  return packages.find((p) => p.name === name) || null;
+  const response = await fetch(`${API_BASE_URL}/packages/${name}`);
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error('Failed to fetch package');
+  return response.json();
 }
