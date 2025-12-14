@@ -1,5 +1,5 @@
 set x = 10
-set name = "Yolang"
+set name = "Kexra"
 say "Hello, " + name
 check x > 5 {
   say "x is big"

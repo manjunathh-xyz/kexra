@@ -3,10 +3,10 @@ import { tokenize } from '../lexer/tokenize';
 import { parse } from '../parser/parse';
 import { Interpreter } from '../runtime/interpreter';
 import { reportError } from '../errors/reporter';
-import { YolangError } from '../errors/YolangError';
+import { KexraError } from '../errors/KexraError';
 
 export function startRepl() {
-  console.log('🎧 Yolang REPL v0.2.0');
+  console.log('🎧 Kexra REPL v0.2.0');
   console.log('Type \'help\' for commands, \'exit\' to quit');
 
   const rl = readline.createInterface({
@@ -70,7 +70,7 @@ export function startRepl() {
       const program = parse(tokens);
       interpreter.interpret(program);
     } catch (error) {
-      if (error instanceof YolangError) {
+      if (error instanceof KexraError) {
         reportError(error, multiline.trim());
       } else {
         console.error('Unexpected error:', error);

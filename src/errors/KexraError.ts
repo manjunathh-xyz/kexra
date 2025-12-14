@@ -1,4 +1,4 @@
-export class YolangError extends Error {
+export class KexraError extends Error {
   constructor(
     message: string,
     public file?: string,
@@ -7,6 +7,6 @@ export class YolangError extends Error {
     public hint?: string
   ) {
     super(message);
-    this.name = 'YolangError';
+    this.name = 'KexraError';
   }
 }

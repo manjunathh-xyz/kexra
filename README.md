@@ -1,12 +1,12 @@
-# 🚀 Yolang
+# 🚀 Kexra
 
 > A playful, beginner-friendly scripting language built with TypeScript
 
-[![npm version](https://img.shields.io/npm/v/yolang.svg)](https://www.npmjs.com/package/yolang)
-[![GitHub license](https://img.shields.io/github/license/manjunathh-xyz/yolang)](https://github.com/manjunathh-xyz/yolang/blob/main/LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/manjunathh-xyz/yolang/ci.yml)](https://github.com/manjunathh-xyz/yolang/actions)
+[![npm version](https://img.shields.io/npm/v/kexra.svg)](https://www.npmjs.com/package/kexra)
+[![GitHub license](https://img.shields.io/github/license/manjunathh-xyz/kexra)](https://github.com/manjunathh-xyz/kexra/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/manjunathh-xyz/kexra/ci.yml)](https://github.com/manjunathh-xyz/kexra/actions)
 
-Yolang is a simple interpreted scripting language designed for beginners, hobbyists, and anyone interested in language design. It's built with TypeScript and runs on Node.js, offering a fun way to explore programming language concepts.
+Kexra is a simple interpreted scripting language designed for beginners, hobbyists, and anyone interested in language design. It's built with TypeScript and runs on Node.js, offering a fun way to explore programming language concepts.
 
 ## ✨ Features
 
@@ -21,14 +21,14 @@ Yolang is a simple interpreted scripting language designed for beginners, hobbyi
 ### From npm (Recommended)
 
 ```bash
-npm install -g yolang
+npm install -g kexra
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/manjunathh-xyz/yolang.git
-cd yolang
+git clone https://github.com/manjunathh-xyz/kexra.git
+cd kexra
 npm install
 npm run build
 ```
@@ -37,39 +37,39 @@ npm run build
 
 ### Hello World
 
-Create a file `hello.yo`:
+Create a file `hello.kx`:
 
-```yo
-say "Hello, Yolang!"
+```kx
+say "Hello, Kexra!"
 ```
 
 Run it:
 
 ```bash
-yo run hello.yo
+kex run hello.kx
 ```
 
 Output:
 ```
-🚀 Yolang v0.2.0
-Running: hello.yo
+🚀 Kexra v0.2.0
+Running: hello.kx
 ──────────────────────────
-Hello, Yolang!
+Hello, Kexra!
 ```
 
 ### Interactive REPL
 
 ```bash
-yo repl
+kex repl
 ```
 
 ```
-🎧 Yolang REPL v0.2.0
+🎧 Kexra REPL v0.2.0
 Type 'help' for commands, 'exit' to quit
-yo> set x = 42
-yo> say x
+kex> set x = 42
+kex> say x
 42
-yo> exit
+kex> exit
 Goodbye!
 ```
 
@@ -129,10 +129,10 @@ set x = 10  # Inline comment
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `yo run <file>` | Execute a Yolang file | `yo run script.yo` |
-| `yo repl` | Start interactive REPL | `yo repl` |
-| `yo version` | Show version | `yo version` |
-| `yo help` | Show help | `yo help` |
+| `kex run <file>` | Execute a Kexra file | `kex run script.kx` |
+| `kex repl` | Start interactive REPL | `kex repl` |
+| `kex version` | Show version | `kex version` |
+| `kex help` | Show help | `kex help` |
 
 ### Aliases
 
@@ -165,15 +165,15 @@ yo> check x > 10 {
 
 Check the `examples/` directory:
 
-- `hello.yo` - Basic greeting
-- `test.yo` - Comprehensive syntax demo
-- `error.yo` - Error handling example
+- `hello.kx` - Basic greeting
+- `test.kx` - Comprehensive syntax demo
+- `error.kx` - Error handling example
 
 Run examples:
 
 ```bash
-yo run examples/hello.yo
-yo run examples/test.yo
+kex run examples/hello.kx
+kex run examples/test.kx
 ```
 
 ## 🏗️ Architecture
@@ -203,8 +203,8 @@ We welcome contributions! Here's how to get started:
 ### Development Setup
 
 ```bash
-git clone https://github.com/manjunathh-xyz/yolang.git
-cd yolang
+git clone https://github.com/manjunathh-xyz/kexra.git
+cd kexra
 npm install
 npm run build
 npm test
@@ -213,7 +213,7 @@ npm test
 ### Project Structure
 
 ```
-yolang/
+kexra/
 ├── src/
 │   ├── cli.ts           # Command-line interface
 │   ├── repl/            # REPL implementation
@@ -231,12 +231,12 @@ yolang/
 Yolang provides friendly error messages:
 
 ```bash
-yo run broken.yo
+kex run broken.kx
 ```
 
 ```
 ❌ SyntaxError
-File: broken.yo
+File: broken.kx
 Line: 3
 
   set x == 10

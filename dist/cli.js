@@ -7,18 +7,19 @@ const parse_1 = require("./parser/parse");
 const interpreter_1 = require("./runtime/interpreter");
 const reporter_1 = require("./errors/reporter");
 const repl_1 = require("./repl/repl");
+const KexraError_1 = require("./errors/KexraError");
 function showHelp() {
-    console.log('Yolang v0.2.0');
+    console.log('Kexra v0.2.0');
     console.log('');
     console.log('Usage:');
-    console.log('  yo run <file.yo>     Run a Yolang file');
-    console.log('  yo repl              Start interactive REPL');
-    console.log('  yo version           Show version');
-    console.log('  yo help              Show help');
+    console.log('  kex run <file.kx>     Run a Kexra file');
+    console.log('  kex repl              Start interactive REPL');
+    console.log('  kex version           Show version');
+    console.log('  kex help              Show help');
     console.log('');
     console.log('Aliases:');
-    console.log('  yo -h                Same as help');
-    console.log('  yo -v                Same as version');
+    console.log('  kex -h                Same as help');
+    console.log('  kex -v                Same as version');
 }
 function main() {
     const args = process.argv.slice(2);
@@ -27,7 +28,7 @@ function main() {
         return;
     }
     if (args[0] === 'version' || args[0] === '-v') {
-        console.log('Yolang v0.2.0');
+        console.log('Kexra v0.2.0');
         return;
     }
     if (args[0] === 'repl') {
@@ -36,7 +37,7 @@ function main() {
     }
     if (args[0] === 'run' && args.length === 2) {
         const filePath = args[1];
-        console.log('🚀 Yolang v0.2.0');
+        console.log('🚀 Kexra v0.2.0');
         console.log(`Running: ${filePath}`);
         console.log('──────────────────────────');
         let source;
@@ -54,7 +55,12 @@ function main() {
             interpreter.interpret(program);
         }
         catch (error) {
-            (0, reporter_1.reportError)(error, source);
+            if (error instanceof KexraError_1.KexraError) {
+                (0, reporter_1.reportError)(error, source);
+            }
+            else {
+                console.error('Unexpected error:', error);
+            }
             process.exit(1);
         }
         return;

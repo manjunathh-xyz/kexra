@@ -1,6 +1,6 @@
-import { YolangError } from './YolangError';
+import { KexraError } from './KexraError';
 
-export function reportError(error: YolangError, source?: string) {
+export function reportError(error: KexraError, source?: string) {
   console.error(`❌ ${error.name}`);
   if (error.file) {
     console.error(`File: ${error.file}`);

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RuntimeError = void 0;
-const YolangError_1 = require("./YolangError");
-class RuntimeError extends YolangError_1.YolangError {
+const KexraError_1 = require("./KexraError");
+class RuntimeError extends KexraError_1.KexraError {
     constructor(message, file, line, column, hint) {
         super(message, file, line, column, hint);
         this.name = 'RuntimeError';

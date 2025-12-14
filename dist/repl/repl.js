@@ -29,9 +29,9 @@ const tokenize_1 = require("../lexer/tokenize");
 const parse_1 = require("../parser/parse");
 const interpreter_1 = require("../runtime/interpreter");
 const reporter_1 = require("../errors/reporter");
-const YolangError_1 = require("../errors/YolangError");
+const KexraError_1 = require("../errors/KexraError");
 function startRepl() {
-    console.log('🎧 Yolang REPL v0.2.0');
+    console.log('🎧 Kexra REPL v0.2.0');
     console.log('Type \'help\' for commands, \'exit\' to quit');
     const rl = readline.createInterface({
         input: process.stdin,
@@ -91,7 +91,7 @@ function startRepl() {
             interpreter.interpret(program);
         }
         catch (error) {
-            if (error instanceof YolangError_1.YolangError) {
+            if (error instanceof KexraError_1.KexraError) {
                 (0, reporter_1.reportError)(error, multiline.trim());
             }
             else {

@@ -1,10 +1,10 @@
 {
-  "name": "yolang",
+  "name": "kexra",
   "version": "0.2.0",
   "description": "A playful, beginner-friendly scripting language",
   "main": "dist/cli.js",
   "bin": {
-    "yo": "dist/cli.js"
+    "kex": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",

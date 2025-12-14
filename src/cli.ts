@@ -7,19 +7,20 @@ import { Interpreter } from './runtime/interpreter';
 import { reportError } from './errors/reporter';
 import { startRepl } from './repl/repl';
 import { CliError } from './errors/CliError';
+import { KexraError } from './errors/KexraError';
 
 function showHelp() {
-  console.log('Yolang v0.2.0');
+  console.log('Kexra v0.2.0');
   console.log('');
   console.log('Usage:');
-  console.log('  yo run <file.yo>     Run a Yolang file');
-  console.log('  yo repl              Start interactive REPL');
-  console.log('  yo version           Show version');
-  console.log('  yo help              Show help');
+  console.log('  kex run <file.kx>     Run a Kexra file');
+  console.log('  kex repl              Start interactive REPL');
+  console.log('  kex version           Show version');
+  console.log('  kex help              Show help');
   console.log('');
   console.log('Aliases:');
-  console.log('  yo -h                Same as help');
-  console.log('  yo -v                Same as version');
+  console.log('  kex -h                Same as help');
+  console.log('  kex -v                Same as version');
 }
 
 function main() {
@@ -31,7 +32,7 @@ function main() {
   }
 
   if (args[0] === 'version' || args[0] === '-v') {
-    console.log('Yolang v0.2.0');
+    console.log('Kexra v0.2.0');
     return;
   }
 
@@ -42,7 +43,7 @@ function main() {
 
   if (args[0] === 'run' && args.length === 2) {
     const filePath = args[1];
-    console.log('🚀 Yolang v0.2.0');
+    console.log('🚀 Kexra v0.2.0');
     console.log(`Running: ${filePath}`);
     console.log('──────────────────────────');
 
@@ -60,7 +61,11 @@ function main() {
       const interpreter = new Interpreter();
       interpreter.interpret(program);
     } catch (error) {
-      reportError(error as any, source);
+      if (error instanceof KexraError) {
+        reportError(error, source);
+      } else {
+        console.error('Unexpected error:', error);
+      }
       process.exit(1);
     }
     return;
