@@ -1,7 +1,8 @@
 {
   "name": "math-extra",
+  "version": "0.1.0",
   "description": "Extra math utilities for Kexra",
   "author": "manjunathh-xyz",
-  "version": "0.1.0",
+  "license": "MIT",
   "repo": "https://github.com/manjunathh-xyz/math-extra"
 }

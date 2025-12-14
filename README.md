@@ -30,6 +30,14 @@ To contribute a package:
 2. Add your package under `packages/`
 3. Open a pull request
 
+## Package Documentation & Websites
+
+Every package must include:
+
+- Source code (`packages/<name>/`)
+- Documentation (`site/packages/<name>/README.md`)
+- Website content (`site/packages/<name>/website/index.md`)
+
 ## What is Kexra?
 
 - Interpreted scripting language
