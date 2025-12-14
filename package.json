@@ -10,9 +10,9 @@
     "build": "tsc",
     "start": "node dist/cli.js",
     "test": "npm run build && node dist/cli.js run examples/hello.kx && node dist/cli.js run examples/test.kx",
-    "lint": "eslint src/**/*.ts studio/src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts studio/src/**/*.ts --fix",
-    "format": "prettier --write src/**/*.ts studio/src/**/*.ts"
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts"
   },
   "keywords": ["language", "scripting", "toy", "beginner"],
    "author": "manjunathh-xyz",

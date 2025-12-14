@@ -13,7 +13,6 @@ Thank you for your interest in contributing to Kexra! This document outlines the
 2. **Install dependencies**
    ```bash
    npm install
-   cd studio && npm install && cd ..
    ```
 
 3. **Build the project**
@@ -46,8 +45,6 @@ git checkout -b feature/your-feature-name
 ### 4. Test Your Changes
 ```bash
 npm test
-# Test Studio locally
-cd studio && npm run dev
 ```
 
 ### 5. Commit Your Changes
@@ -92,16 +89,14 @@ git commit -m "feat: add your feature description"
 
 ## Documentation
 
-- Update docs for any user-facing changes
-- Follow the existing documentation style
-- Test examples in the docs
+- Update README for any user-facing changes
+- Follow the existing README style
 
 ## Commit Messages
 
 Follow conventional commits:
 - `feat:` for new features
 - `fix:` for bug fixes
-- `docs:` for documentation
 - `chore:` for maintenance
 
 ## Code of Conduct
