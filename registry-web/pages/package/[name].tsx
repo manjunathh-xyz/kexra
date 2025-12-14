@@ -38,15 +38,11 @@ export default function Package({ pkg }: PackageProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Provide known package paths without fetching
-  const paths = [
-    { params: { name: 'math' } },
-    { params: { name: 'math-extra' } }
-  ];
+  const paths = [{ params: { name: 'math' } }, { params: { name: 'math-extra' } }];
   return {
     paths,
     fallback: 'blocking', // Allow dynamic paths
   };
-};
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
